@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HW3_Farm_Iot_Automate</string>
+    <string name="FarmMaintenance">Farm Maintenance</string>
+    <string name="FanOn">FAN ON</string>
+    <string name="SprinklerOn">Sprinkler ON</string>
+    <string name="FanOff">FAN OFF</string>
+    <string name="SprinklerOff">Sprinkler OFF</string>
+</resources>

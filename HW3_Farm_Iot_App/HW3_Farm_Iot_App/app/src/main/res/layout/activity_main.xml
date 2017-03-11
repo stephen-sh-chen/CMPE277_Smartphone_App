@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    tools:context="com.example.stephen.hw3_farm_iot_app.MainActivity">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelTempHumiAppTitle"
+        android:textColor="@android:color/background_light"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="165dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="63dp"
+        android:text="@string/LabelHumidity"
+        android:textColor="@android:color/background_light"
+        android:textSize="26sp"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/InputTextHumi"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="38dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="196dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="63dp"
+        android:text="@string/LabelTemperature"
+        android:textColor="@android:color/background_light"
+        android:textSize="26sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/InputTextHumi"
+        android:layout_width="111dp"
+        android:layout_height="56dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:layout_marginTop="39dp"
+        app:layout_constraintTop_toBottomOf="@+id/InputTextTemp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/InputTextTemp"
+        android:layout_width="111dp"
+        android:layout_height="56dp"
+        android:background="@android:color/background_light"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:layout_marginTop="47dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintLeft_toRightOf="@+id/textView4"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="129dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="42dp"
+        android:background="@android:color/holo_green_light"
+        android:onClick="Cancel"
+        android:text="@string/btnCancel"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintLeft_toRightOf="@+id/button2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/InputTextHumi" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="129dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="54dp"
+        android:background="@android:color/holo_green_light"
+        android:onClick="SetConfiguration"
+        android:text="@string/butSet"
+        android:textSize="24sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HW3_Farm_Iot_App</string>
+    <string name="LabelTemperature">Temperature (F)</string>
+    <string name="LabelHumidity">Humidity (%)</string>
+    <string name="LabelTempHumiAppTitle"><![CDATA[Temperature & Humidity]]></string>
+    <string name="butSet">Set</string>
+    <string name="btnCancel">Cancel</string>
+</resources>
