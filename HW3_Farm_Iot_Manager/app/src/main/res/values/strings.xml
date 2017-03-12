@@ -4,5 +4,5 @@
     <string name="TurnFan">Turn FAN</string>
     <string name="TurnFanSprinkler"><![CDATA[Turn Fan & Sprinkler]]></string>
     <string name="TurnFanCondition">Temperature (F) &gt;70 &amp; Temperature (F) &lt; 90</string>
-    <string name="TurnFanSprinklerCondition">Temperature (F) &gt;70 &amp; Temperature (F) &lt; 125</string>
+    <string name="TurnFanSprinklerCondition">Temperature (F) &gt;90 &amp; Temperature (F) &lt; 125</string>
 </resources>

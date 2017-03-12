@@ -41,6 +41,7 @@ public class FarmMaintenance extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.sjsu.cmpe277.intent.FANON")) {
                 fanStatus.setText(getString(R.string.FanOn));
+                sprinklerStatus.setText(getString(R.string.SprinklerOff));
                 Log.i("automate", "FanOn received!");
             } else if (intent.getAction().equals("com.sjsu.cmpe277.intent.FANSPRINKLERON")) {
                 fanStatus.setText(getString(R.string.FanOn));
