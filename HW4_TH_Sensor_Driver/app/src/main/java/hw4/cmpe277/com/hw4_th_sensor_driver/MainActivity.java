@@ -1,10 +1,13 @@
 package hw4.cmpe277.com.hw4_th_sensor_driver;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements UIUpdateCallBack {
     private EditText getTempUI = null;
@@ -20,10 +23,10 @@ public class MainActivity extends AppCompatActivity implements UIUpdateCallBack 
         setContentView(R.layout.activity_main);
 
         getTempUI = (EditText) findViewById(R.id.IdTemperature);
-        getHumiUI = (EditText) findViewById(R.id.IdTemperature);
-        getActUI = (EditText) findViewById(R.id.IdTemperature);
-        getReadCountUI = (EditText) findViewById(R.id.IdTemperature);
-        getOutputUI = (EditText) findViewById(R.id.IdTemperature);
+        getHumiUI = (EditText) findViewById(R.id.IdHumidity);
+        getActUI = (EditText) findViewById(R.id.IdActivityId);
+        getReadCountUI = (EditText) findViewById(R.id.IdSensortReadCount);
+        getOutputUI = (EditText) findViewById(R.id.IdOutputArea);
     }
 
     @Override
@@ -32,11 +35,20 @@ public class MainActivity extends AppCompatActivity implements UIUpdateCallBack 
         getHumiUI.setText(humi + "");
         getActUI.setText(actId + "");
         getReadCountUI.setText(readCount - counter + "");
-        getOutputUI.setText(humi + "");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Output ").append(counter + ":\n");
+        sb.append("Temperature: ").append(temp + " F\n");
+        sb.append("Humidity: ").append(humi + " %\n");
+        sb.append("Activity: ").append(actId + " \n\n");
+        getOutputUI.append(sb.toString());
     }
 
     public void Generate(View view) {
         this.readCount = Integer.parseInt(getReadCountUI.getText().toString());
+        //Toast.makeText(this, readCount + "", Toast.LENGTH_SHORT).show();
+        MyLongTask longTask = new MyLongTask(MainActivity.this);
+        longTask.execute(readCount);
     }
 
     public void Cancel(View view) {
