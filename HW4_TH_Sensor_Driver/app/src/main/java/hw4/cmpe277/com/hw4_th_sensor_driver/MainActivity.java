@@ -15,7 +15,10 @@ public class MainActivity extends AppCompatActivity implements UIUpdateCallBack 
     private EditText getActUI = null;
     private EditText getReadCountUI = null;
     private EditText getOutputUI = null;
+    public  TextView getGenerate = null;
+    private TextView getCancle = null;
     private int readCount = 0;
+    private MyLongTask mLongTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,13 @@ public class MainActivity extends AppCompatActivity implements UIUpdateCallBack 
         getActUI = (EditText) findViewById(R.id.IdActivityId);
         getReadCountUI = (EditText) findViewById(R.id.IdSensortReadCount);
         getOutputUI = (EditText) findViewById(R.id.IdOutputArea);
+        getGenerate = (TextView) findViewById(R.id.IdGenerate);
+        getCancle = (TextView) findViewById(R.id.IdCancel);
+
+        getTempUI.setFocusable(false);
+        getHumiUI.setFocusable(false);
+        getActUI.setFocusable(false);
+        getOutputUI.setFocusable(false);
     }
 
     @Override
@@ -46,12 +56,18 @@ public class MainActivity extends AppCompatActivity implements UIUpdateCallBack 
 
     public void Generate(View view) {
         this.readCount = Integer.parseInt(getReadCountUI.getText().toString());
-        //Toast.makeText(this, readCount + "", Toast.LENGTH_SHORT).show();
-        MyLongTask longTask = new MyLongTask(MainActivity.this);
-        longTask.execute(readCount);
+        getTempUI.setText("");
+        getHumiUI.setText("");
+        getActUI.setText("");
+        getOutputUI.setText("");
+
+        mLongTask = new MyLongTask(MainActivity.this);
+        mLongTask.execute(readCount);
     }
 
     public void Cancel(View view) {
-
+        mLongTask.cancel(true);
+        getGenerate.setClickable(true);
+        Toast.makeText(this, "The Async Task Stopped!", Toast.LENGTH_SHORT).show();
     }
 }

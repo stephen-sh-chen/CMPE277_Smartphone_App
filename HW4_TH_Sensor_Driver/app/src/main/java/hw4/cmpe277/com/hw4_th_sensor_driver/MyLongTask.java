@@ -19,7 +19,9 @@ public class MyLongTask extends AsyncTask<Integer, Integer, Integer> {
 
     @Override
     protected void onPreExecute() {
-
+        MainActivity  ctx = (MainActivity) mUICallBack;
+        ctx.getGenerate.setClickable(false);
+        Toast.makeText(ctx, "Ready to run Async Task!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -32,8 +34,9 @@ public class MyLongTask extends AsyncTask<Integer, Integer, Integer> {
             int actId = r.nextInt(1000);
             publishProgress(tempVal, humiVal, actId, i);
             Utils.sleepForInSecs(5);
+            if (isCancelled()) break;
         }
-        return null;
+        return 1;
     }
 
     @Override
@@ -42,7 +45,10 @@ public class MyLongTask extends AsyncTask<Integer, Integer, Integer> {
         Toast.makeText((Context) mUICallBack, "Got Output " + params[3], Toast.LENGTH_SHORT).show();
     }
 
-    protected void onPostExecute(Integer... params) {
-
+    @Override
+    protected void onPostExecute(Integer params) {
+        MainActivity  ctx = (MainActivity) mUICallBack;
+        ctx.getGenerate.setClickable(true);
+        Toast.makeText(ctx, "Task Completed!", Toast.LENGTH_SHORT).show();
     }
 }
