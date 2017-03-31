@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HW5_Android_DataBase</string>
+    <string name="FarmMaintenance">New Products Database</string>
+    <string name="Button1">Insert New Item</string>
+    <string name="Button2">Search Item</string>
+    <string name="Button3">Add</string>
+    <string name="Button4">Cancel</string>
+    <string name="Title">Add New Product Item</string>
+    <string name="TextView1">Item Name:</string>
+    <string name="TextView2">Item Description:</string>
+</resources>
