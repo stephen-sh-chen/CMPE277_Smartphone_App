@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blackColor"
+    tools:context="hw5.cmpe277.com.hw5_android_datastorage.SearchItemActivity">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SearchTitle"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <EditText
+        android:id="@+id/IdTemperature"
+        android:layout_width="347dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="80dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/IdCancel"
+        android:layout_width="165dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="155dp"
+        android:background="@drawable/red_textview"
+        android:gravity="center"
+        android:onClick="Cancel"
+        android:text="@string/SearchCancel"
+        android:textColor="@color/whiteColor"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/IdGenerate"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="201dp" />
+
+    <TextView
+        android:id="@+id/IdGenerate"
+        android:layout_width="151dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="155dp"
+        android:background="@drawable/green_textview"
+        android:gravity="center"
+        android:onClick="Generate"
+        android:text="@string/SearchSearchLabel"
+        android:textColor="@color/whiteColor"
+        android:textSize="30sp"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/IdOutputArea"
+        android:layout_width="357dp"
+        android:layout_height="276dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="230dp"
+        android:background="?attr/colorButtonNormal"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

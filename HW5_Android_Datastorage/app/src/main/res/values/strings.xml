@@ -8,4 +8,9 @@
     <string name="Title">Add New Product Item</string>
     <string name="TextView1">Item Name:</string>
     <string name="TextView2">Item Description:</string>
+    <string name="TextView3">Item Price:</string>
+    <string name="TextView4">Item Review:</string>
+    <string name="SearchTitle">Search Item</string>
+    <string name="SearchSearchLabel">Search</string>
+    <string name="SearchCancel">Cancel</string>
 </resources>
