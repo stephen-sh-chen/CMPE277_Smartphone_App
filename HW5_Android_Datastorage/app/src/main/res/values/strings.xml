@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">HW5_Android_DataBase</string>
+
+    <!-- SearchItem View-->
+    <string name="SearchTitle">Search Item</string>
+    <string name="SearchSearchLabel">Search</string>
+    <string name="SearchCancel">Cancel</string>
+
+    <!-- MainActivity View -->
     <string name="FarmMaintenance">New Products Database</string>
     <string name="Button1">Insert New Item</string>
     <string name="Button2">Search Item</string>
+
+    <!-- AddItem View -->
     <string name="Button3">Add</string>
     <string name="Button4">Cancel</string>
     <string name="Title">Add New Product Item</string>
@@ -10,7 +19,5 @@
     <string name="TextView2">Item Description:</string>
     <string name="TextView3">Item Price:</string>
     <string name="TextView4">Item Review:</string>
-    <string name="SearchTitle">Search Item</string>
-    <string name="SearchSearchLabel">Search</string>
-    <string name="SearchCancel">Cancel</string>
+    <string name="Save_success_msg">Saved to SQLite Successfully!</string>
 </resources>

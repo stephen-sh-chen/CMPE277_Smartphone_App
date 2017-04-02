@@ -1,9 +1,22 @@
 package hw5.cmpe277.com.hw5_android_datastorage;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+import static hw5.cmpe277.com.hw5_android_datastorage.DbConstants.Description;
+import static hw5.cmpe277.com.hw5_android_datastorage.DbConstants.NAME;
+import static hw5.cmpe277.com.hw5_android_datastorage.DbConstants.Price;
+import static hw5.cmpe277.com.hw5_android_datastorage.DbConstants.Review;
+
+import java.io.OutputStreamWriter;
+import java.util.Date;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -32,5 +45,23 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void save(View view) {
 
+        DataController dataController=new DataController(getBaseContext());
+        dataController.open();
+        ContentValues values = new ContentValues();
+        values.put(NAME, _itemNameUI.getText().toString());
+        values.put(Description, _itemDescriptionUI.getText().toString());
+        values.put(Price, _itemPriceUI.getText().toString());
+        values.put(Review, _itemReviewUI.getText().toString());
+        long retValue= dataController.insert(values);
+        dataController.close();
+
+        if (retValue != -1) {
+            Context context = getApplicationContext();
+            CharSequence text=getString(R.string.Save_success_msg);
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
