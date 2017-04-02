@@ -41,6 +41,9 @@ public class AddItemActivity extends AppCompatActivity {
         _itemDescriptionUI.setText("");
         _itemPriceUI.setText("");
         _itemReviewUI.setText("");
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void save(View view) {

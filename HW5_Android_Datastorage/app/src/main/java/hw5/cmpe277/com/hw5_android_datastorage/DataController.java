@@ -44,6 +44,30 @@ public class DataController
 		return db.insertOrThrow(TABLE_NAME, null, values);
 	}
 
+	public String search (String keyword) {
+		//Select * FROM MyTable WHERE Mycolumn Like '%cat%'
+		String myColumn = NAME;// + " " + Description + " " + Price + " " + Review;
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM ").append(TABLE_NAME).append(" WHERE ").append(myColumn).append(" Like ").append("'%").append(keyword).append("%'");
+		Cursor c = db.rawQuery(sb.toString(), null);
+		String str = "Not Found!";
+		if (c.getCount() > 0) {
+			str="Total "+c.getCount()+" results\n";
+			str+="-----\n";
+
+			c.moveToFirst();    // 移到第 1 筆資料
+			do{        // 逐筆讀出資料
+				str+="Item ID:"+c.getString(0)+"\n";
+				str+="Item Name:"+c.getString(1)+"\n";
+				str+="Item Description:"+c.getString(2)+"\n";
+				str+="Item Price:"+c.getString(3)+"\n";
+				str+="Item Review:"+c.getString(4)+"\n";
+				str+="-----\n";
+			} while(c.moveToNext());    // 有一下筆就繼續迴圈
+		}
+		return str;
+	}
+
 	public Cursor retrieve()
 	{
 		return db.query(TABLE_NAME, new String[]{MESSAGE}, null, null, null, null, null);

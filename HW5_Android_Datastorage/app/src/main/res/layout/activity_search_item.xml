@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.056" />
 
     <EditText
-        android:id="@+id/IdTemperature"
+        android:id="@+id/SearchKeywordID"
         android:layout_width="347dp"
         android:layout_height="48dp"
         android:layout_marginLeft="8dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="155dp"
         android:background="@drawable/green_textview"
         android:gravity="center"
-        android:onClick="Generate"
+        android:onClick="Search"
         android:text="@string/SearchSearchLabel"
         android:textColor="@color/whiteColor"
         android:textSize="30sp"
