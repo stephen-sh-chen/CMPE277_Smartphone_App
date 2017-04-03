@@ -13,8 +13,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void switchDownloadPage(View view) {
+    public void openDownloadPage(View view) {
         Intent insertIntent = new Intent(this, DownloadActivity.class);
         startActivity(insertIntent);
+    }
+
+    public void close(View view) {
+        MainActivity.this.finish();
     }
 }
