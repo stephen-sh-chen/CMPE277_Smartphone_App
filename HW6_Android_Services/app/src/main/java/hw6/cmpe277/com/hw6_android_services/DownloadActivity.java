@@ -57,6 +57,7 @@ public class DownloadActivity extends AppCompatActivity {
         String url5 = pdf5.getText().toString();
 
         Intent intent = new Intent(getBaseContext(), MyService.class);
+        //Intent intent = new Intent(DownloadActivity.this, MyService.class);
 
         // This is use for IntentService
         //Intent intent = new Intent(getBaseContext(), MyIntentService.class);

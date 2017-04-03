@@ -4,9 +4,6 @@ package hw6.cmpe277.com.hw6_android_services;
  * Created by Stephen on 4/3/2017.
  */
 
-import java.net.URL;
-import java.util.Timer;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,6 +11,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.net.URL;
+import java.util.Timer;
 
 public class MyService extends Service {
     int counter = 0;
