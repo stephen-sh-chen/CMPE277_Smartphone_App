@@ -25,7 +25,10 @@ import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     public static final String TAG = MainActivity.class.getName();
@@ -47,6 +50,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Polyline mPolyline;
 
     private List<LatLng> mPoints = new ArrayList<>();
+    private HashSet<LatLng> mSubscribeSet = new HashSet<>();
+    private String mBusLine = "";
+    private String mFromStop = "";
+    private String mEndStop = "";
+    private LatLng mFromStopLatLng;
+    private LatLng mEndStopLatLng;
+
+    private Map<String, LatLng> mStopMap = createMap();
+
+    private static Map<String, LatLng> createMap()
+    {
+        Map<String, LatLng> myMap = new HashMap<>();
+        myMap.put("Palo Alto", new LatLng(37.4473, -122.12179));
+        myMap.put("Mountain View", new LatLng(37.41683, -122.0869));
+        myMap.put("Sunny Valley", new LatLng(37.40809, -122.06867));
+        myMap.put("Santa Clara", new LatLng(37.39971, -122.0354));
+        myMap.put("San Jose", new LatLng(37.40373, -122.02285));
+        myMap.put("Milpitas", new LatLng(37.41854, -121.9701));
+        myMap.put("East Bridge", new LatLng(37.42267, -121.92585));
+        myMap.put("Great Mall", new LatLng(37.4294, -121.9097));
+        return myMap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +84,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }*/
 
+        Bundle bundle = getIntent().getParcelableExtra("bundle");
+        if (bundle!=null) {
+
+            mBusLine = bundle.getString("BusLine");
+            mFromStop = bundle.getString("FromStop");
+            mEndStop = bundle.getString("EndStop");
+            mFromStopLatLng = bundle.getParcelable("FromStopLatlng");;
+            mEndStopLatLng = bundle.getParcelable("EndStopLatlng");;
+
+            mSubscribeSet.clear();
+            mSubscribeSet.add(mFromStopLatLng);
+            mSubscribeSet.add(mEndStopLatLng);
+        }
+
         setContentView(R.layout.activity_main);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -69,9 +108,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        Bundle bundle = getIntent().getParcelableExtra("bundle");
+        if (bundle!=null) {
+
+            mBusLine = bundle.getString("BusLine");
+            mFromStop = bundle.getString("FromStop");
+            mEndStop = bundle.getString("EndStop");
+            mFromStopLatLng = bundle.getParcelable("FromStopLatlng");;
+            mEndStopLatLng = bundle.getParcelable("EndStopLatlng");;
+
+            mSubscribeSet.clear();
+            mSubscribeSet.add(mFromStopLatLng);
+            mSubscribeSet.add(mEndStopLatLng);
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4473, -122.12179), 15.0f));
     }
 
     private final void initPubNub() {
@@ -100,6 +158,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     end = msg.length() - 2;
                     String lat = msg.substring(start, end);
                     Log.v(TAG, "long:" + lng + ", lat:" + lat);
+
+                    if (mSubscribeSet.contains(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))) {
+                        //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
+                        Log.v(TAG, mBusLine + " Bus is comming!");
+                    }
 
                     updateLocation(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
                 } catch (Exception e) {

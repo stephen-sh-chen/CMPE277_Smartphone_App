@@ -89,7 +89,8 @@ var my_subkey = "sub-c-ac319e2e-ee4c-11e6-b325-02ee2ddab7fe"
 var my_channel = "All_Bus_Info"
 var db_addr = "54.191.90.246:27017"
 var xyMap = make(map[int][]Coordinate)
-var busSpeed = 1500
+//var busSpeed = 1500
+var busSpeed = 50
 var busSleep = 10000
 
 var BusStopMap = make(map[Coordinate]string)

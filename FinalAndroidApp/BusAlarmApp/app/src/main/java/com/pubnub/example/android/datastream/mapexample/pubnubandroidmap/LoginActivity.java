@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private LatLng mFromLatLng;
     private LatLng mEndLatLng;
 
-    private Map<String, LatLng> stopMap = createMap();
+    private Map<String, LatLng> mStopMap = createMap();
 
     private static Map<String, LatLng> createMap()
     {
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_LONG).show();
                 mFromStop = parent.getItemAtPosition(position)+"";
-                mFromLatLng = stopMap.get(mFromStop);
+                mFromLatLng = mStopMap.get(mFromStop);
             }
 
             @Override
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_LONG).show();
                 mEndStop = parent.getItemAtPosition(position)+"";
-                mEndLatLng = stopMap.get(mEndStop);
+                mEndLatLng = mStopMap.get(mEndStop);
             }
 
             @Override
@@ -126,9 +126,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void go2Map(View view) {
         Intent mapIntent = new Intent(this, MainActivity.class);
-        mapIntent.putExtra("BusLine", mBusLine);
-        mapIntent.putExtra("FromStop", mEndLatLng);
-        mapIntent.putExtra("EndStop", mFromLatLng);
+
+        Bundle args = new Bundle();
+        args.putString("BusLine", mBusLine);
+        args.putString("FromStop", mBusLine);
+        args.putString("EndStop", mBusLine);
+        args.putParcelable("FromStopLatlng", mEndLatLng);
+        args.putParcelable("EndStopLatlng", mFromLatLng);
+        mapIntent.putExtra("bundle", args);
         startActivity(mapIntent);
     }
 }
