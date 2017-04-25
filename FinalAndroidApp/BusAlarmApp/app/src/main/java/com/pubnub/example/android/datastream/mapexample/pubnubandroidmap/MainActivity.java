@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -129,7 +130,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4473, -122.12179), 15.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4473, -122.12179), 10.0f));
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+        for (Map.Entry<String, LatLng> entry : mStopMap.entrySet()) {
+            mMap.addMarker(new MarkerOptions().position(entry.getValue()).title(entry.getKey()).icon(BitmapDescriptorFactory.fromResource(R.drawable.bustop80x80)));
+        }
     }
 
     private final void initPubNub() {
@@ -190,7 +196,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (MainActivity.this.mMarker != null) {
                     MainActivity.this.mMarker.setPosition(location);
                 } else {
-                    MainActivity.this.mMarker = mMap.addMarker(new MarkerOptions().position(location));
+                    MainActivity.this.mMarker = mMap.addMarker(new MarkerOptions().position(location)
+                                                                                  .title("Moving Bus")
+                                                                                  .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_0)));
                 }
 
                 if (MainActivity.this.mPolyline != null) {
@@ -199,8 +207,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     MainActivity.this.mPolyline = mMap.addPolyline(new PolylineOptions().color(Color.BLUE).addAll(mPoints));
                 }
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10.0f));
             }
         });
     }
+
 }
