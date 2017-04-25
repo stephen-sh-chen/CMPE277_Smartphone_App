@@ -1,6 +1,5 @@
 package com.pubnub.example.android.datastream.mapexample.pubnubandroidmap;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -53,12 +52,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mSharedPrefs = getSharedPreferences(DATASTREAM_PREFS, MODE_PRIVATE);
+        /*mSharedPrefs = getSharedPreferences(DATASTREAM_PREFS, MODE_PRIVATE);
         if (!mSharedPrefs.contains(DATASTREAM_UUID)) {
             Intent toLogin = new Intent(this, LoginActivity.class);
             startActivity(toLogin);
             return;
-        }
+        }*/
 
         setContentView(R.layout.activity_main);
 

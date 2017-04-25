@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">PubNubAndroidMap</string>
+    <string name="app_name">Smart Bus Tracker</string>
+    <string-array name="bus_line_name">
+        <item></item>
+        <item>10 - SANTA CLARA TRANSIT- METRO AIR, West</item>
+        <item>12 - SAN JOSE CIVIC CENTER - EASTRI, West</item>
+        <item>26 - SUNNYVALE/LOCKHEED - EASTRIDGE, West</item>
+        <item>66 - KAISER SAN JOSE - MILPITAS/DIX, South</item>
+        <item>77 - EASTRIDGE - GREAT MALL/MAIN, North</item>
+    </string-array>
+
+    <string-array name="stop_name">
+        <item></item>
+        <item>Palo Alto</item>
+        <item>Mountain View</item>
+        <item>Sunny Valley</item>
+        <item>Santa Clara</item>
+        <item>San Jose</item>
+        <item>Milpitas</item>
+        <item>East Bridge</item>
+        <item>Great Mall</item>
+    </string-array>
 </resources>
