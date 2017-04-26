@@ -1,5 +1,6 @@
 package com.pubnub.example.android.datastream.mapexample.pubnubandroidmap;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,18 @@ public class LoginActivity extends AppCompatActivity {
     private LatLng mEndLatLng;
 
     private Map<String, LatLng> mStopMap = createMap();
+    private static Toast toast;
+
+    private static void makeTextAndShow(final Context context, final String text, final int duration) {
+        if (toast == null) {
+            toast = android.widget.Toast.makeText(context, text, duration);
+        } else {
+            toast.setText(text);
+            toast.setDuration(duration);
+        }
+        toast.show();
+    }
+
 
     private static Map<String, LatLng> createMap()
     {
@@ -59,7 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         mBusLineSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                makeTextAndShow(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT);
                 mBusLine = parent.getItemAtPosition(position)+"";
             }
 
@@ -74,7 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         mFromStopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                makeTextAndShow(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT);
                 mFromStop = parent.getItemAtPosition(position)+"";
                 mFromLatLng = mStopMap.get(mFromStop);
             }
@@ -90,7 +105,8 @@ public class LoginActivity extends AppCompatActivity {
         mEndStopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT).show();
+                makeTextAndShow(getBaseContext(), parent.getItemAtPosition(position) + " Selcted!", Toast.LENGTH_SHORT);
                 mEndStop = parent.getItemAtPosition(position)+"";
                 mEndLatLng = mStopMap.get(mEndStop);
             }
@@ -129,10 +145,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Bundle args = new Bundle();
         args.putString("BusLine", mBusLine);
-        args.putString("FromStop", mBusLine);
-        args.putString("EndStop", mBusLine);
-        args.putParcelable("FromStopLatlng", mEndLatLng);
-        args.putParcelable("EndStopLatlng", mFromLatLng);
+        args.putString("FromStop", mFromStop);
+        args.putString("EndStop", mEndStop);
+        args.putParcelable("FromStopLatlng", mFromLatLng);
+        args.putParcelable("EndStopLatlng", mEndLatLng);
         mapIntent.putExtra("bundle", args);
         startActivity(mapIntent);
     }

@@ -1,10 +1,12 @@
 package com.pubnub.example.android.datastream.mapexample.pubnubandroidmap;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,7 +29,6 @@ import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Polyline mPolyline;
 
     private List<LatLng> mPoints = new ArrayList<>();
-    private HashSet<LatLng> mSubscribeSet = new HashSet<>();
+    //private HashSet<LatLng> mSubscribeSet = new HashSet<>();
     private String mBusLine = "";
     private String mFromStop = "";
     private String mEndStop = "";
@@ -74,6 +75,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return myMap;
     }
 
+    private static Toast toast;
+
+    //private void updateLocation(final LatLng location) {
+    private void makeTextAndShow(final Context context, final String text, final int duration) {
+
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (toast == null) {
+                    toast = android.widget.Toast.makeText(context, text, duration);
+                } else {
+                    toast.setText(text);
+                    toast.setDuration(duration);
+                }
+                toast.show();
+            }
+        });
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mFromStopLatLng = bundle.getParcelable("FromStopLatlng");;
             mEndStopLatLng = bundle.getParcelable("EndStopLatlng");;
 
-            mSubscribeSet.clear();
+            /*mSubscribeSet.clear();
             mSubscribeSet.add(mFromStopLatLng);
-            mSubscribeSet.add(mEndStopLatLng);
+            mSubscribeSet.add(mEndStopLatLng);*/
         }
 
         setContentView(R.layout.activity_main);
@@ -121,16 +142,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             mFromStopLatLng = bundle.getParcelable("FromStopLatlng");;
             mEndStopLatLng = bundle.getParcelable("EndStopLatlng");;
 
-            mSubscribeSet.clear();
+            /*mSubscribeSet.clear();
             mSubscribeSet.add(mFromStopLatLng);
-            mSubscribeSet.add(mEndStopLatLng);
+            mSubscribeSet.add(mEndStopLatLng);*/
         }
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4473, -122.12179), 10.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.4473, -122.12179), 15.0f));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         for (Map.Entry<String, LatLng> entry : mStopMap.entrySet()) {
@@ -165,11 +186,29 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     String lat = msg.substring(start, end);
                     Log.v(TAG, "long:" + lng + ", lat:" + lat);
 
-                    if (mSubscribeSet.contains(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))) {
+                    /*
+                        private String mBusLine = "";
+                        private String mFromStop = "";
+                        private String mEndStop = "";
+                        private LatLng mFromStopLatLng;
+                        private LatLng mEndStopLatLng;
+                    */
+                    //if (mSubscribeSet.contains(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))) {
+                    LatLng curPosition = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                    if (mFromStopLatLng.equals(curPosition)) {
                         //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
                         //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
-                        Log.v(TAG, mBusLine + " Bus is comming!");
+                        makeTextAndShow(getBaseContext(), "Your Bus is Coming at " + mFromStop, Toast.LENGTH_LONG);
+                        Log.v(TAG, "Your Bus is Coming at " + mFromStop);
                     }
+
+                    if (mEndStopLatLng.equals(curPosition)) {
+                        //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), mBusLine + " Bus is comming!", Toast.LENGTH_LONG).show();
+                        makeTextAndShow(getBaseContext(), "Ready to Get Off Bus! " + mEndStop + " is arriving!", Toast.LENGTH_LONG);
+                        Log.v(TAG, "Ready to Get Off Bus!" + mEndStop + " is arriving!");
+                    }
+
 
                     updateLocation(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
                 } catch (Exception e) {
@@ -207,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     MainActivity.this.mPolyline = mMap.addPolyline(new PolylineOptions().color(Color.BLUE).addAll(mPoints));
                 }
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10.0f));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f));
             }
         });
     }
