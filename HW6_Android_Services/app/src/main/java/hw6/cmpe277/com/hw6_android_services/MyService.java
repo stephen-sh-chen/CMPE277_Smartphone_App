@@ -12,6 +12,11 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Timer;
 
@@ -44,7 +49,7 @@ public class MyService extends Service {
 
         Object[] objUrls = (Object[]) intent.getExtras().get("URLs");
         URL[] urls = new URL[objUrls.length];
-        for (int i=0; i<objUrls.length-1; i++) {
+        for (int i=0; i<objUrls.length; i++) {
             urls[i] = (URL) objUrls[i];
         }
         new DoBackgroundTask().execute(urls);
@@ -69,12 +74,51 @@ public class MyService extends Service {
         return 100;
     }
 
+    private long DownloadbyURL(URL url) throws IOException {
+        InputStream inputStream = null;
+        HttpURLConnection connection = null;
+
+        connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestProperty("Content-Type", "application/pdf");
+        connection.setRequestProperty("Accept", "application/pdf");
+        connection.setRequestMethod("GET");
+        int statusCode = connection.getResponseCode();
+
+        if(statusCode == 200) {
+//            File sdcard = Environment.getExternalStorageDirectory();
+            String fileName = url.toString().substring(url.toString().lastIndexOf('/') + 1);
+            File file = new File(getCacheDir(), fileName);
+
+            FileOutputStream fileOutput = new FileOutputStream(file);
+            inputStream = connection.getInputStream();
+
+            byte[] buffer = new byte[1024];
+            int bufferLength = 0;
+
+            while((bufferLength = inputStream.read(buffer)) > 0) {
+                fileOutput.write(buffer, 0, bufferLength);
+            }
+            fileOutput.close();
+            return file.length();
+        }
+        else {
+            return 0;
+        }
+    }
+
     private class DoBackgroundTask extends AsyncTask<URL, Integer, Long> {
         protected Long doInBackground(URL... urls) {
             int count = urls.length;
             long totalBytesDownloaded = 0;
             for (int i = 0; i < count; i++) {
-                totalBytesDownloaded += DownloadFile(urls[i]);
+                //totalBytesDownloaded += DownloadFile(urls[i]);
+                try {
+                    totalBytesDownloaded += DownloadbyURL(urls[i]);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
                 publishProgress((int) (((i+1) / (float) count) * 100));
             }
             return totalBytesDownloaded;
